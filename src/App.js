@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Layout from './components/views/Layout';
+import Home from './components/views/Home';
+import Account from './components/views/Account';
+import Checkout from './components/views/Checkout';
+import Login from './components/views/Login';
+import Register from './components/views/Register';
+import PrivateRoute from './components/hocs/PrivateRoute';
+import UnPrivateRoute from './components/hocs/UnPrivateRoute';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Home/>}/>
+        <Route path="account" element={<PrivateRoute><Account/></PrivateRoute>}/>
+        <Route path="checkout" element={<Checkout/>}/>
+        <Route path="login" element={<UnPrivateRoute><Login /></UnPrivateRoute>}/>
+        <Route path="login/:firstname/:lastname" element={<UnPrivateRoute><Login /></UnPrivateRoute>}/>
+        <Route path="register" element={<UnPrivateRoute><Register /></UnPrivateRoute>}/>
+      
+      </Route>
+    </Routes>
+    </BrowserRouter>
   );
-}
+}; 
 
 export default App;
